@@ -22,3 +22,7 @@ class BankAccount:
                 return False, 'amount > balance'
             
         return False, 'type error' 
+
+    def get_balance(self):
+        return self.balance
+    

@@ -72,3 +72,13 @@ if __name__ == '__main__':
                        bankaccount1.balance)
         
         print(res.applay_interest_proccess())
+
+    save_in_txt_transaction = input('test save transactions in txt (yes, no) : ')
+
+    if save_in_txt_transaction == 'yes':
+        account_number = input('account number reciver : ')
+        res = bank.money_transfer(bankaccount1, '121211', 20, save_in_txt=True)
+        print(res)
+        print('-' * 50)
+        print(bankaccount1.balance)
+        print(bankaccount2.balance)

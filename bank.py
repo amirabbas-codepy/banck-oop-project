@@ -32,7 +32,7 @@ class Bank:
                 return True
         return False
     
-    def money_transfer(self, account_bank_sender:BankAccount, account_number_reciver:str, amount:int):
+    def money_transfer(self, account_bank_sender:BankAccount, account_number_reciver:str, amount:int, save_in_txt:Literal[True, False]=False):
         reciver = None
         for acc in self.account_list:
             if acc.account_number == account_number_reciver:
@@ -42,8 +42,23 @@ class Bank:
         if reciver:
             if account_bank_sender.balance >= amount:
                 account_bank_sender.balance -= amount
-                acc.balance += amount
-                return True
+                reciver.balance += amount
+                
+                if save_in_txt:
+                    
+                    data = {'account_sender_name':account_bank_sender.holder_name, 
+                            'account_sender_number':account_bank_sender.account_number, 
+                            'amount':amount, 
+                            'account_reciver_name':reciver.holder_name, 
+                            'account_reciver_number':reciver.account_number
+                            }
+                            
+                    
+                    with open('Transactions.txt', 'a') as file:
+                        file.write(f'{data}\n')
+
+                        return True, 'Save in Transactions.txt'
+                    
             else:
                 return False, 'not balance'
         else:
@@ -55,4 +70,3 @@ class Bank:
                 return f'{acc.account_number}, {acc.holder_name}, {acc.balance}, {acc.type_account}'
         
         return False, 'not fund'
-
